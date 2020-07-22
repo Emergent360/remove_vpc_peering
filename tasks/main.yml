@@ -7,7 +7,7 @@
     region: "{{ ec2_region }}"
   register: vpc_net_facts
 
-- name: Debugging the result
+- name: vpc_net_facts
   debug:
     msg: "{{ vpc_net_facts }}"
 
@@ -18,7 +18,7 @@
       requester-vpc-info.vpc-id: "{{ vpc_net_facts.vpcs[0].id }}"
   register: vpc_peer
 
-- name: Debugging the result
+- name: vpc_peer.result from ec2_vpc_peering_info
   debug:
     msg: "{{ vpc_peer.result }}"
 
@@ -27,7 +27,7 @@
     region: "{{ ec2_region }}"
   register: rtb_info
 
-- name: Debugging the result
+- name: rtb_info
   debug:
     msg: "{{ rtb_info }}"
 
@@ -38,6 +38,6 @@
 #    state: absent
 #  register: vpc_peer
 
-- name: Debugging the result
+- name: vpc_peer after deletion
   debug:
     msg: "{{ vpc_peer }}"
