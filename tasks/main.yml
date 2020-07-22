@@ -9,7 +9,7 @@
 
 - name: Debugging the result
   debug:
-    msg: "{{ vpc_net_facts.result }}"
+    msg: "{{ vpc_net_facts }}"
 
 - name: List all vpc peers
   ec2_vpc_peering_info:
