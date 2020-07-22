@@ -5,11 +5,14 @@
     filters:
       "tag:Name": "{{ ec2_name_prefix }}-vpc"
     region: "{{ ec2_region }}"
-  register: vpc_net_facts
+  register: vpc_net_info
 
-- name: vpc_net_facts
+- name: vpc_net_info
   debug:
-    msg: "{{ vpc_net_facts }}"
+    msg: "{{ vpc_net_info }}"
+
+#- debug: msg="{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto','mytag1') | first).id }}"
+- debug: msg="{{ (vpc_net_info.vpcs | selectattr('tags.Name','equalto', ec2_name_prefix ) | first).vpc_id }}"
 
 - name: List all vpc peers
   ec2_vpc_peering_info:
@@ -30,6 +33,8 @@
 - name: rtb_info
   debug:
     msg: "{{ rtb_info }}"
+
+#- debug: msg="{{ (rtb_info | selectattr('tags.Name','equalto','mytag1') | first).id }}"
 
 #- name: delete a local VPC peering Connection
 #  ec2_vpc_peer:
