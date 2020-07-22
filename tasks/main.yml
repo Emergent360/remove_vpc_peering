@@ -21,7 +21,7 @@
   register: vpc_peer
 
 - name: set ec2_vpc_peering_id
-  set_fact: ec2_vpc_peering_id="{{ (vpc_peer.result | select('vpc_peering_connection_id')) }}"
+  set_fact: ec2_vpc_peering_id="{{ vpc_peer.result | select("equalto",'vpc_peering_connection_id') }}"
 
 - name: Get route table info for vpc peer target
   ec2_vpc_route_table_info:
