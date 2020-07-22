@@ -1,8 +1,17 @@
 ---
 # tasks file for remove_vpc_peering
+- name: Get the VPC ID for {{ ec2_name_prefix }}-vpc
+  ec2_vpc_net_info:
+    filters:
+      "tag:Name": "{{ ec2_name_prefix }}-vpc"
+    region: "{{ ec2_region }}"
+  register: vpc_net_facts
+  
 - name: List all vpc peers
   ec2_vpc_peering_info:
     region: us-east-1
+    filters:
+      requester-vpc-info.vpc-id: "{{ vpc_net_facts.vpcs[0].id }}"
   register: all_vpc_peers
 
 - name: Debugging the result
