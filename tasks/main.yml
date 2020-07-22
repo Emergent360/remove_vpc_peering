@@ -31,6 +31,8 @@
 - name: Get route table info for vpc peer target
   ec2_vpc_route_table_info:
     region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ accepter_vpc_id }}"
   register: rtb_info
 
 - name: rtb_info
