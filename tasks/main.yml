@@ -11,8 +11,10 @@
   debug:
     msg: "{{ vpc_net_info }}"
 
+- set_fact: ec2_vpc_name="{{ ec2_name_prefix }}-vpc"
+
 #- debug: msg="{{ (vpc_subnet_facts.subnets | selectattr('tags.Name','equalto','mytag1') | first).id }}"
-- debug: msg="{{ (vpc_net_info.vpcs | selectattr('tags.Name','equalto', ec2_name_prefix'-vpc' ) | first).vpc_id }}"
+- debug: msg="{{ (vpc_net_info.vpcs | selectattr('tags.Name','equalto', ec2_vpc_name ) | first).vpc_id }}"
 
 - name: List all vpc peers
   ec2_vpc_peering_info:
