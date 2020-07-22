@@ -24,6 +24,7 @@
 
 - name: Get route table info for vpc peer target
   ec2_vpc_route_table_info:
+    region: "{{ ec2_region }}"
   register: rtb_info
 
 - name: Debugging the result
