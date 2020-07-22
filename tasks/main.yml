@@ -26,7 +26,7 @@
 # We need the accepter vpc id because we need to delete the route from it's route table.
 # We'll delete the requester route table completely, but the accepter is just a route removal.
 - name: set accepter_vpc_id
-  set_fact: accepter_vpc_id="{{ vpc_peer.result[0] }}"
+  set_fact: accepter_vpc_id="{{ vpc_peer.result[0].accepter_vpc_info }}"
 
 - name: Get route table info for vpc peer target
   ec2_vpc_route_table_info:
