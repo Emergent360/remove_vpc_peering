@@ -23,10 +23,10 @@
 - name: set ec2_vpc_peering_id
   set_fact: ec2_vpc_peering_id="{{ vpc_peer.result[0].vpc_peering_connection_id }}"
 
-# We need the acceptor vpc id because we need to delete the route from it's route table.
-# We'll delete the requester route table completely, but the acceptor is just a route removal.
-- name: set acceptor_vpc_id
-  set_fact: acceptor_vpc_id="{{ vpc_peer.result[0].acceptor_vpc_info.vpc_id }}"
+# We need the accepter vpc id because we need to delete the route from it's route table.
+# We'll delete the requester route table completely, but the accepter is just a route removal.
+- name: set accepter_vpc_id
+  set_fact: accepter_vpc_id="{{ vpc_peer.result[0].accepter_vpc_info.vpc_id }}"
 
 - name: Get route table info for vpc peer target
   ec2_vpc_route_table_info:
