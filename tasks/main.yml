@@ -22,6 +22,14 @@
   debug:
     msg: "{{ vpc_peer.result }}"
 
+- name: Get route table info for vpc peer target
+  ec2_vpc_route_table_info:
+  register: rtb_info
+
+- name: Debugging the result
+  debug:
+    msg: "{{ rtb_info }}"
+
 - name: delete a local VPC peering Connection
   ec2_vpc_peer:
     region: "{{ ec2_region }}"
