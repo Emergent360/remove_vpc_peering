@@ -6,10 +6,14 @@
       "tag:Name": "{{ ec2_name_prefix }}-vpc"
     region: "{{ ec2_region }}"
   register: vpc_net_facts
-  
+
+- name: Debugging the result
+  debug:
+    msg: "{{ vpc_net_facts.result }}"
+
 - name: List all vpc peers
   ec2_vpc_peering_info:
-    region: us-east-1
+    region: "{{ ec2_region }}"
     filters:
       requester-vpc-info.vpc-id: "{{ vpc_net_facts.vpcs[0].id }}"
   register: all_vpc_peers
