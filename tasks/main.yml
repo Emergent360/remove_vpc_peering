@@ -37,13 +37,13 @@
 
 - name: rtb_info
   debug:
-    msg: "{{ rtb_info }}"
+    msg: "{{ rtb_info.route_tables.routes }}"
 
 - name: Get destination route for vpc_peering_connection
   set_fact: 
     accepter_route: "{{ rtb_info
       | selectattr('vpc_peering_connection_id', 'defined')
-      | map(attribute='vpc_peering_connection_id')
+      | map(attribute='destination_cidr_block')
       | list
       | unique }}"
 
