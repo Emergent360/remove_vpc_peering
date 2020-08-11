@@ -40,7 +40,12 @@
     msg: "{{ rtb_info }}"
 
 - name: Get destination route for vpc_peering_connection
-  set_fact: accepter_route="{{ (rtb_info | selectattr('vpc_peering_connection_id') | list }}"
+  set_fact: 
+    accepter_route: "{{ (rtb_info
+      | selectattr('vpc_peering_connection_id', 'defined')
+      | map(attribute='vpc_peering_connection_id')
+      | list
+      | unique }}"
 
 #- debug: msg="{{ (rtb_info | selectattr('tags.Name','equalto','mytag1') | first).id }}"
 
