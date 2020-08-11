@@ -49,7 +49,8 @@
       | rejectattr('vpc_peering_connection_id', 'none')
       | map(attribute='destination_cidr_block')
       | list
-      | unique }}"
+      | unique
+      | first }}"
 
 - name: Reject the peering connection
   ec2_vpc_peer:
