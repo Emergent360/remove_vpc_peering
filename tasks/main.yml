@@ -37,7 +37,7 @@
 
 - name: rtb_info
   debug:
-    msg: "{{ rtb_info.route_tables.routes }}"
+    msg: "{{ rtb_info.routes }}"
 
 - name: Get destination route for vpc_peering_connection
   set_fact: 
