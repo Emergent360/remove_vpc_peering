@@ -47,6 +47,12 @@
       | list
       | unique }}"
 
+- name: Reject the peering connection
+  ec2_vpc_peer:
+    region: "{{ ec2_region }}"
+    peering_id: "{{ ec2_vpc_peering_id }}"
+    state: reject
+
 #- debug: msg="{{ (rtb_info | selectattr('tags.Name','equalto','mytag1') | first).id }}"
 
 #- name: delete a local VPC peering Connection
