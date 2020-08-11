@@ -42,7 +42,7 @@
 - name: Get destination route for vpc_peering_connection
   set_fact: 
     accepter_route: "{{ rtb_info.route_tables[0].routes
-      | selectattr('vpc_peering_connection_id', 'defined')
+      | rejectattr('vpc_peering_connection_id', 'none')
       | map(attribute='destination_cidr_block')
       | list
       | unique }}"
