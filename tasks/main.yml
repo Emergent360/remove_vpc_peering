@@ -41,7 +41,7 @@
 
 - name: Get destination route for vpc_peering_connection
   set_fact: 
-    accepter_route: "{{ (rtb_info
+    accepter_route: "{{ rtb_info
       | selectattr('vpc_peering_connection_id', 'defined')
       | map(attribute='vpc_peering_connection_id')
       | list
