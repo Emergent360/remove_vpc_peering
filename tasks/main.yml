@@ -37,7 +37,7 @@
 
 - name: rtb_info
   debug:
-    msg: "{{ rtb_info.route_tables[0].routes }}"
+    msg: "{{ rtb_info }}"
 
 - name: Get destination route for vpc_peering_connection
   set_fact: 
@@ -47,21 +47,21 @@
       | list
       | unique }}"
 
-- name: Reject the peering connection
-  ec2_vpc_peer:
-    region: "{{ ec2_region }}"
-    peering_id: "{{ ec2_vpc_peering_id }}"
-    state: reject
-
-#- debug: msg="{{ (rtb_info | selectattr('tags.Name','equalto','mytag1') | first).id }}"
-
-- name: delete a local VPC peering Connection
-  ec2_vpc_peer:
-    region: "{{ ec2_region }}"
-    peering_id: "{{ vpc_peer.result[0].vpc_peering_connection_id }}"
-    state: absent
-  register: vpc_peer
+#- name: Reject the peering connection
+#  ec2_vpc_peer:
+#    region: "{{ ec2_region }}"
+#    peering_id: "{{ ec2_vpc_peering_id }}"
+#    state: reject
 #
-#- name: vpc_peer after deletion
-#  debug:
-#    msg: "{{ vpc_peer }}"
+#- name: Delete route for peering connection
+#  command: >
+#    aws delete-route
+#    --destination-cidr-block "{{ accepter_route }}"
+#    --route-table-id
+#
+#- name: delete a local VPC peering Connection
+#  ec2_vpc_peer:
+#    region: "{{ ec2_region }}"
+#    peering_id: "{{ vpc_peer.result[0].vpc_peering_connection_id }}"
+#    state: absent
+#  register: vpc_peer
