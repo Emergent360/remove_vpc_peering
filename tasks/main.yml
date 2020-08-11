@@ -55,12 +55,12 @@
 
 #- debug: msg="{{ (rtb_info | selectattr('tags.Name','equalto','mytag1') | first).id }}"
 
-#- name: delete a local VPC peering Connection
-#  ec2_vpc_peer:
-#    region: "{{ ec2_region }}"
-    #peering_id: "{{ vpc_peer.result[0].vpc_peering_connection_id }}"
-#    state: absent
-#  register: vpc_peer
+- name: delete a local VPC peering Connection
+  ec2_vpc_peer:
+    region: "{{ ec2_region }}"
+    peering_id: "{{ vpc_peer.result[0].vpc_peering_connection_id }}"
+    state: absent
+  register: vpc_peer
 #
 #- name: vpc_peer after deletion
 #  debug:
