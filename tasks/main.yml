@@ -39,6 +39,10 @@
   debug:
     msg: "{{ rtb_info }}"
 
+- name: Get route table id
+  set_fact:
+    route_table_id: "{{ rtb_info.route_tables[0].id }}"
+
 - name: Get destination route for vpc_peering_connection
   set_fact: 
     accepter_route: "{{ rtb_info.route_tables[0].routes
