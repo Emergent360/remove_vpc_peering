@@ -35,9 +35,9 @@
       vpc-id: "{{ accepter_vpc_id }}"
   register: rtb_info
 
-#- name: rtb_info
-#  debug:
-#    msg: "{{ rtb_info }}"
+- name: rtb_info
+  debug:
+    msg: "{{ rtb_info }}"
 
 - name: Get route table id
   set_fact:
