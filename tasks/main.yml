@@ -1,23 +1,17 @@
 ---
 # tasks file for remove_vpc_peering
-- name: set requester ec2_vpc_name
-  set_fact: ec2_vpc_name="{{ ec2_name_prefix }}-vpc"
-
-- name: get the VPC info for requester "{{ ec2_vpc_name }}"
+- name: Get the VPC ID for {{ ec2_name_prefix }}-vpc
   ec2_vpc_net_info:
     filters:
-      "tag:Name": "{{ ec2_vpc_name }}"
+      "tag:Name": "{{ ec2_name_prefix }}-vpc"
     region: "{{ ec2_region }}"
-  register: vpc_net_info
-
-- name: set ec2_vpc_id for requester "{{ ec2_vpc_name }}"
-  set_fact: ec2_vpc_id="{{ (vpc_net_info.vpcs | selectattr('tags.Name','equalto', ec2_vpc_name ) | first).vpc_id }}"
+  register: peer_vpc_net_facts
 
 - name: get vpc peering info for for requester "{{ ec2_vpc_name }}"
   ec2_vpc_peering_info:
     region: "{{ ec2_region }}"
     filters:
-      requester-vpc-info.vpc-id: "{{ ec2_vpc_id }}"
+      requester-vpc-info.vpc-id: "{{ peer_vpc_net_facts.vpcs[0].id }}"
   register: vpc_peer
 
 - debug: 
