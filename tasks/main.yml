@@ -14,9 +14,6 @@
       requester-vpc-info.vpc-id: "{{ peer_vpc_net_facts.vpcs[0].id }}"
   register: vpc_peer
 
-- debug: 
-    msg: "{{ vpc_peer }}"
-
 - name: set the id for the peering connection
   set_fact: ec2_vpc_peering_id="{{ vpc_peer.result[0].vpc_peering_connection_id }}"
 
