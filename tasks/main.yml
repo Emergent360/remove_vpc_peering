@@ -7,7 +7,7 @@
     region: "{{ ec2_region }}"
   register: peer_vpc_net_facts
 
-- name: get vpc peering info for for requester "{{ ec2_vpc_name }}"
+- name: get vpc peering info for for requester "{{ ec2_name_prefix }}-vpc"
   ec2_vpc_peering_info:
     region: "{{ ec2_region }}"
     filters:
